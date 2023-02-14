@@ -9,20 +9,35 @@
 </head>
 <body>
     <?php 
-
+        /**
+         * Dotenv secret variables config
+         */
         use Dotenv\Dotenv;
         require __DIR__.'/vendor/autoload.php';
-
+        /**
+         * Loading dotenv file
+         */
         $dotenv = Dotenv::createImmutable(__DIR__);
         $dotenv->load(); 
+        /**
+         * Secret variables
+         */
         $API_PUBLIC = $_ENV["API_PUBLIC"];
         $API_PRIVATE = $_ENV["API_PRIVATE"];
+        /**
+         * Timestamp required at API call 
+         */
         $date = date_create();
         $ts =date_timestamp_get($date);
         $key = md5($ts.$API_PRIVATE.$API_PUBLIC);
-       
+        /**
+         * Calling API
+         * 
+         */
         $url = "https://gateway.marvel.com:443/v1/public/characters?limit=40&ts=$ts&apikey=f19ea43dcc7253f05ba422fa39cae31d&hash=$key";
-       
+        /**
+         * Retrieving data from API
+         */
         $data = file_get_contents($url);
         $JSON_data = json_decode($data);
         $results = $JSON_data->data->results;
@@ -39,7 +54,11 @@
             <h2>Personajes de Marvel &trade;</h2>
         </span>
         <div class="results">
-            <?php             
+            <?php
+                /**
+                 * Iterate througt each character
+                 * show image ant name 
+                 */             
                 foreach($results as $result){
                     $image = $result->thumbnail->path. '.' .$result->thumbnail->extension;
                     $name = $result->name;
