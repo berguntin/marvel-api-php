@@ -9,6 +9,11 @@
 </head>
 <body>
     <?php 
+    /** 
+     *@author Hugo Bermudez <hugo.bermudezgutin@gmail.com> 
+     *@version 1.0
+     *@link http://tareasdawhbg.atwebpages.com/DWES_T9/
+     */
         /**
          * Dotenv secret variables config
          */
